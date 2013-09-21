@@ -1,0 +1,13 @@
+{
+  "name": "Slotmachine",
+  "description": "Simple Slotmachine",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/imgages/logo_128.png"
+  },
+  "developer": {
+    "name": "XSilent",
+    "url": "https://github.com/XSilent"
+  },
+  "default_locale": "en"
+}

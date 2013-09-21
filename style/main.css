@@ -1,0 +1,28 @@
+
+body {
+	font-family: Verdana;
+	padding:25px;
+}
+
+#slotmachine {
+	padding:15px;
+	width:800px;
+}
+
+.slot {
+	float:left;
+	padding:15px;
+	margin-right:4px;
+	width:150px;
+	height:200px;
+	border:solid 1px grey;
+	overflow: hidden;
+}
+
+.ribbon {
+	position: relative;
+	top:-90px;
+	width:130px;
+	padding-left:10px;
+	padding-right:10px;
+}
