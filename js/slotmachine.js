@@ -8,35 +8,29 @@ var Slotmachine = function()
 {
 	var _ribbonImagesPath;
 	var _ribbonImages = [];
+	var _ribbonImagesMax = 12;
+
+	var _ribbonClones = {};
+	var that = this;
 
 	this.init = function()
 	{
-		//var element = jQuery('#slot1 .ribbon');
-
-		var mydiv = $("div:last");
-		var offset = mydiv.offset();
-
 		_initImages();
 		_initRibbons();
+
+		// register event handler
+		$('#machine_play').click(function(){
+			that.play();
+		});
 	};
 
 	function _initImages()
 	{
 		_ribbonImagesPath = 'images/items/';
 
-		_ribbonImages.push('0.jpg');
-		_ribbonImages.push('1.jpg');
-		_ribbonImages.push('2.jpg');
-		_ribbonImages.push('3.jpg');
-		_ribbonImages.push('4.jpg');
-		_ribbonImages.push('5.jpg');
-		_ribbonImages.push('6.jpg');
-		_ribbonImages.push('7.jpg');
-		_ribbonImages.push('8.jpg');
-		_ribbonImages.push('9.jpg');
-		_ribbonImages.push('10.jpg');
-		_ribbonImages.push('11.jpg');
-		_ribbonImages.push('12.jpg');
+		for(var i = 0;i < _ribbonImagesMax;i++) {
+			_ribbonImages.push(i + '.jpg');
+		}
 	}
 
 	function _initRibbons()
@@ -44,12 +38,15 @@ var Slotmachine = function()
 		for(var i = 1;i <= 3;i++) {
 
 			_shuffle(_ribbonImages);
+			$('#slot' + i + ' div.ribbon').html = '';
 
 			for(var j = 0;j < _ribbonImages.length; j++) {
 				var imageElement = $('<img src="' + _ribbonImagesPath + _ribbonImages[j] + '" alt="dingsda">');
 
  				$('#slot' + i + ' div.ribbon' ).append(imageElement);
 			}
+
+			_ribbonClones[i] = $('#slot' + i + ' .ribbon').clone();
 		}
 	}
 
@@ -60,11 +57,29 @@ var Slotmachine = function()
 		return arr;
 	}
 
+	/**
+	 * Only as prototype/test ... needs
+	 * better (real) implementation
+	 */
 	this.play = function()
 	{
+		//this.init();
+		var height = $('#slot1 .ribbon').height() - 400;
+
+
+		$('#slot1 .ribbon').animate({ "top": "-=" + height + "px" }, 1800, 'swing', function(){
+			$('#slot1 .ribbon').append(_ribbonClones[1]);
+		} );
+
+		$('#slot2 .ribbon').animate({ "top": "-=" + height + "px" }, 2200, 'swing', function(){
+			$('#slot2 .ribbon').append(_ribbonClones[2]);
+		} );
+
+		$('#slot3 .ribbon').animate({ "top": "-=" + height + "px" }, 2800, 'swing', function(){
+			$('#slot3 .ribbon').append(_ribbonClones[3]);
+		});
 
 	};
-
 };
 var slotmachine = new Slotmachine();
 
