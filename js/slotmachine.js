@@ -13,6 +13,9 @@ var Slotmachine = function()
 	var _ribbonClones = {};
 	var that = this;
 
+	/**
+	 *
+	 */
 	this.init = function()
 	{
 		_initImages();
@@ -24,6 +27,10 @@ var Slotmachine = function()
 		});
 	};
 
+	/**
+	 *
+	 * @private
+	 */
 	function _initImages()
 	{
 		_ribbonImagesPath = 'images/items/';
@@ -33,6 +40,10 @@ var Slotmachine = function()
 		}
 	}
 
+	/**
+	 *
+	 * @private
+	 */
 	function _initRibbons()
 	{
 		for(var i = 1;i <= 3;i++) {
@@ -41,7 +52,7 @@ var Slotmachine = function()
 			$('#slot' + i + ' div.ribbon').html = '';
 
 			for(var j = 0;j < _ribbonImages.length; j++) {
-				var imageElement = $('<img src="' + _ribbonImagesPath + _ribbonImages[j] + '" alt="dingsda">');
+				var imageElement = $('<img src="' + _ribbonImagesPath + _ribbonImages[j] + '" alt="' + j + '">');
 
  				$('#slot' + i + ' div.ribbon' ).append(imageElement);
 			}
@@ -50,6 +61,12 @@ var Slotmachine = function()
 		}
 	}
 
+	/**
+	 *
+	 * @param arr
+	 * @return {*}
+	 * @private
+	 */
 	function _shuffle(arr)
 	{
 		for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
@@ -63,24 +80,28 @@ var Slotmachine = function()
 	 */
 	this.play = function()
 	{
-		//this.init();
 		var height = $('#slot1 .ribbon').height() - 400;
 
-
-		$('#slot1 .ribbon').animate({ "top": "-=" + height + "px" }, 1800, 'swing', function(){
-			$('#slot1 .ribbon').append(_ribbonClones[1]);
-		} );
-
-		$('#slot2 .ribbon').animate({ "top": "-=" + height + "px" }, 2200, 'swing', function(){
-			$('#slot2 .ribbon').append(_ribbonClones[2]);
-		} );
-
-		$('#slot3 .ribbon').animate({ "top": "-=" + height + "px" }, 2800, 'swing', function(){
-			$('#slot3 .ribbon').append(_ribbonClones[3]);
-		});
-
+		_animateSlot(1, 1800, height);
+		_animateSlot(2, 2200, height);
+		_animateSlot(3, 2800, height);
 	};
+
+	/**
+	 *
+	 * @param slotNr
+	 * @param duration
+	 * @param height
+	 * @private
+	 */
+	function _animateSlot(slotNr, duration, height)
+	{
+		$('#slot' + slotNr + ' .ribbon').animate({ "top": "-=" + height + "px" }, duration, 'swing', function(){
+			$('#slot' + slotNr + ' .ribbon').append(_ribbonClones[slotNr]);
+		} );
+	}
 };
+
 var slotmachine = new Slotmachine();
 
 $(document).ready(function(){
